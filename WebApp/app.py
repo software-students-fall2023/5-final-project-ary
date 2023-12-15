@@ -30,6 +30,7 @@ except Exception as e:
 
 @app.route('/')
 def login():
+    #login page
     return render_template('login.html')
     
 
