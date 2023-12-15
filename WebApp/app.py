@@ -27,16 +27,21 @@ except Exception as e:
     print('Database connection error:', e) # debug
 
 
+
 @app.route('/')
+def login():
+    return render_template('login.html')
+    
+
+@app.route('/main_page')
 def main_page():
-    """main page for public collection showcase"""
     db.items.insert_one({"name":"frog", "desc":"this is a frog"})
     docs = db.items.find({})
     return render_template('main_page.html', docs=docs)
 
+
 if __name__ == "__main__":
     PORT = os.getenv('PORT', 5001) # use the PORT environment variable, or default to 5000
-
     #import logging
     #logging.basicConfig(filename='/home/ak8257/error.log',level=logging.DEBUG)
     app.run(port=PORT)
