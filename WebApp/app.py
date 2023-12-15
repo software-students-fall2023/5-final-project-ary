@@ -11,13 +11,9 @@ import subprocess
 # instantiate the app
 app = Flask(__name__)
 
-load_dotenv()  # take environment variables from .env.
+app.debug = True
 
-# turn on debugging if in development mode
-if os.getenv('FLASK_ENV', 'development') == 'development':
-    # turn on debugging, if in development
-    app.debug = True # debug mnode
-# connect to the database
+load_dotenv()  # take environment variables from .env.
 
 cxn = pymongo.MongoClient(os.getenv('MONGO_URI'), serverSelectionTimeoutMS=5000)
 try:
@@ -34,7 +30,9 @@ except Exception as e:
 @app.route('/')
 def main_page():
     """main page for public collection showcase"""
-    return render_template('main_page.html')
+    db.items.insert_one({"name":"frog", "desc":"this is a frog"})
+    docs = db.items.find({})
+    return render_template('main_page.html', docs=docs)
 
 if __name__ == "__main__":
     PORT = os.getenv('PORT', 5001) # use the PORT environment variable, or default to 5000

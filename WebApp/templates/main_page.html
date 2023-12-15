@@ -32,17 +32,15 @@
     <section class="collection">
         <h2>Featured Items</h2>
 
-        <div class="item">
-            <img src="item1.jpg" alt="Item 1">
-            <h3>Item 1</h3>
-            <p>Description of Item 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+        {% for doc in docs %}
 
         <div class="item">
-            <img src="item2.jpg" alt="Item 2">
-            <h3>Item 2</h3>
-            <p>Description of Item 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <img src="item1.jpg" alt="Item 1">
+            <h3>{{doc.name}}</h3>
+            <p>{{doc.desc}}</p>
         </div>
+
+        {%endfor%}
 
         <!-- Add more items as needed -->
 
