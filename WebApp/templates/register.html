@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Register Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,26 +36,20 @@
     </style>
 </head>
 <body>
-    <h2>Login Form </h2>
-
-    <form method="POST" action="{{ url_for('login') }}">
+    <h2>Register Form</h2>
+    <form method="POST" action="{{ url_for('register') }}">
+        <p> Please create your account </p>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
     
-        <button type="submit">Login</button>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+        <button type="submit">Register</button>
+        {% for mesg in get_flashed_messages() %}
+            <p>{{ mesg }}</p>
+        {% endfor %}
     </form>
-    <p>Do not have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
+    <p>Already have an account? <a href="{{ url_for('login') }}">log in here</a>.</p>
 </body>
 </html>
