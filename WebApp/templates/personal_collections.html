@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection Showcase</title>
+    <title>Your Collections</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
@@ -11,34 +11,41 @@
 <body>
 
     <header>
-        <h1>Collection Showcase</h1>
+        <h1>Your Collections</h1>
         <nav >
-            <a href="{{url_for('my_collections', user_id = user_id)}}">
-              <button class="bt">View My Collections </button>
+            <a href="{{url_for('main_page', user_id = user_id)}}">
+              <button class="bt">View Public Collections </button>
             </a>
             <br/>
             <a href="{{url_for('login')}}">
               <button class="bt">Log Out</button>
             </a>
           </nav>
-        <p>Welcome to our amazing collection!</p>
+        <p>Browse your amazing collections!</p>
     </header>
 
     <section class="hero">
-        <h2>Explore the Beauty</h2>
-        <p>Discover unique items in our public collection exhibition.</p>
+        <h2>Manage your collection items here.</h2>
     </section>
 
     <section class="collection">
-        <h2>Featured Items</h2>
+        <a href="{{url_for('upload', user_id = user_id)}}">
+            <button class="bt">Upload a new item </button>
+        </a>
+
+        <h2>Your Items</h2>
 
         {% for item in items %}
 
         <div class="item">
             <img src="{{ url_for('get_image', file_id=item.file_id) }}" alt="{{ item.name }}">
             <h3>{{item.name}} </h3>
-            <p>{{item.desc}}</p> -- <a>{{get_username(item.user_id)}}</a>
+            <p>{{item.desc}}</p>
+            <a href="{{url_for('delete', user_id = user_id, item_id = item._id)}}">
+                <button class="bt">Delete this item</button>
+            </a>
             <hr>
+
         </div>
         <br><br>
 
