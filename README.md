@@ -3,6 +3,8 @@
 ## Project Overview
 This GitHub project hosts the codebase for a web application designed to serve as a digital collection archive. This app enables users to display, add, and delete items from their personal collections and view collections curated by other users. It's an ideal platform for collectors, hobbyists, and anyone interested in archiving and sharing their collections digitally.
 
+![Test](https://github.com/software-students-fall2023/5-final-project-ary/blob/main/.github/workflows/blank.yml/badge.svg)
+
 ## Links
 links to the container images for each custom subsystem, hosted on DockerHub
 
