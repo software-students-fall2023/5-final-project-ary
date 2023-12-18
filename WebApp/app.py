@@ -1,11 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, make_response, flash, get_flashed_messages, send_file
+from flask import Flask, render_template, request, redirect, url_for, flash, get_flashed_messages, send_file
 from dotenv import load_dotenv
 import os
 import pymongo
 import datetime
 from bson.objectid import ObjectId
-import sys
-import os
 from datetime import datetime
 from gridfs import GridFS
 import mimetypes
