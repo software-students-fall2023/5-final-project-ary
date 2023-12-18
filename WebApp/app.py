@@ -6,7 +6,7 @@ import datetime
 from bson.objectid import ObjectId
 import sys
 import os
-import subprocess
+from datetime import datetime
 from gridfs import GridFS
 import mimetypes
 
@@ -89,12 +89,12 @@ def get_image(file_id):
 @app.route('/main_page/<user_id>')
 def main_page(user_id):
     # db.items.insert_one({"name":"frog", "desc":"this is a frog"})
-    items = db.items.find({})
+    items = db.items.find({}).sort("createdAt", -1)
     return render_template('main_page.html', items=items, user_id=user_id, get_username=get_username)
 
 @app.route('/personal_collections/<user_id>', methods=['GET','POST'])
 def my_collections(user_id):
-    items = db.items.find({"user_id": user_id})
+    items = db.items.find({"user_id": user_id}).sort("createdAt", -1)
 
     return render_template('personal_collections.html', items=items, user_id=user_id)
 
@@ -121,6 +121,7 @@ def upload(user_id):
                 "desc":item_desc,
                 "user_id":user_id,
                 "file_id":file_id,
+                "createdAt": datetime.utcnow(),
             }
             db.items.insert_one(item)
             return redirect(url_for('my_collections', user_id=user_id))
@@ -129,9 +130,18 @@ def upload(user_id):
 
     return render_template('upload.html', user_id=user_id)
 
+@app.route('/delete/<user_id>/<item_id>')
+def delete(user_id, item_id):
+    item_del = db.items.find_one({"_id": ObjectId(item_id)})
+    fs = GridFS(db)
+    fs.delete(ObjectId(item_del['file_id']))
+    db.items.delete_one({"_id": ObjectId(item_id)})
+    return redirect(url_for('my_collections', user_id=user_id))
 
 if __name__ == "__main__":
-    PORT = os.getenv('PORT', 5001) # use the PORT environment variable, or default to 5000
+    PORT = os.getenv('PORT', 5050) # use the PORT environment variable, or default to 5000
     #import logging
     #logging.basicConfig(filename='/home/ak8257/error.log',level=logging.DEBUG)
-    app.run(port=PORT)
+    # app.run(port=PORT, debug=True)
+    app.run(host="0.0.0.0", debug=True, port=PORT)
+
