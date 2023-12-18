@@ -11,6 +11,7 @@ services:
 
   web-app:
     build: ./WebApp
+    image: alexxiang0604/digital_collection_ary:web-app
     ports:
       - "5050:5050"
     environment:
