@@ -34,11 +34,13 @@ jobs:
         pip install --user pipenv
         pipenv install
 
+    
+
    - name: Deployment
-    on:
-    push:
-    branches:
-      - main
-    pull_request:
-    branches:
-      - main
+     on:
+     push:
+      branches:
+       - main
+     pull_request:
+      branches:
+       - main
