@@ -10,7 +10,7 @@ datetime = "*"
 pymongo = "*"
 pytest = "*"
 mongomock = "*"
-
+app = "*"
 
 [dev-packages]
 pytest = "*"
