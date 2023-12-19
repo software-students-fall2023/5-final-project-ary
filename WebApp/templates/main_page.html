@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection Showcase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <header>
+        <style type="text/css">
+            .bt {
+             background-color:#edf1f1;
+             cursor:pointer;
+             display: block;
+             width: 100%;
+             border: none;
+             border-radius: 8px;
+             padding: 14px 28px;
+             font-size: 16px;
+             cursor: pointer;
+             text-align: center;
+         }
+         </style>
+
+        <h1>Collection Showcase</h1>
+        <nav >
+            <a href="{{url_for('my_collections', user_id = user_id)}}">
+              <button class="bt">View My Collections </button>
+            </a>
+            <br/>
+            <a href="{{url_for('login')}}">
+              <button class="bt">Log Out</button>
+            </a>
+          </nav>
+        <p>Welcome to our amazing collection!</p>
+    </header>
+
+    <section class="hero">
+        <h2>Explore the Beauty</h2>
+        <p>Discover unique items in our public collection exhibition.</p>
+    </section>
+
+    <section class="collection">
+        <h2>Featured Items</h2>
+
+        {% for item in items %}
+
+        <div class="item">
+            <img src="{{ url_for('get_image', file_id=item.file_id) }}" alt="{{ item.name }}">
+            <h3>{{item.name}} </h3>
+            <p>{{item.desc}}</p> -- <a>{{get_username(item.user_id)}}</a>
+            <hr>
+        </div>
+        <br><br>
+
+        {%endfor%}
+
+        <!-- Add more items as needed -->
+
+    </section>
+
+    <footer>
+        <p>© 2023 Collection Showcase. All rights reserved.</p>
+        <p>Source code available at
+            <a
+              href="https://github.com/software-students-fall2023/5-final-project-ary.git"
+              >Github.
+            </a>
+        </p>
+    </footer>
+
+</body>
+</html>

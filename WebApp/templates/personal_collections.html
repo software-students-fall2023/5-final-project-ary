@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Collections</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <header>
+        <style type="text/css">
+        .bt {
+         background-color:#edf1f1;
+         cursor:pointer;
+         display: block;
+         width: 100%;
+         border: none;
+         border-radius: 8px;
+         padding: 14px 28px;
+         font-size: 16px;
+         cursor: pointer;
+         text-align: center;
+     }
+     </style>
+
+        <h1>Your Collections</h1>
+        <nav >
+            <a href="{{url_for('main_page', user_id = user_id)}}">
+              <button class="bt">View Public Collections </button>
+            </a>
+            <br/>
+            <a href="{{url_for('login')}}">
+              <button class="bt">Log Out</button>
+            </a>
+          </nav>
+        <p>Browse your amazing collections!</p>
+    </header>
+
+    <section class="hero">
+        <h2>Manage your collection items here.</h2>
+    </section>
+
+    <section class="collection">
+        <a href="{{url_for('upload', user_id = user_id)}}">
+            <button class="bt">Upload a new item </button>
+        </a>
+
+        <h2>Your Items</h2>
+
+        {% for item in items %}
+
+        <div class="item">
+            <img src="{{ url_for('get_image', file_id=item.file_id) }}" alt="{{ item.name }}">
+            <h3>{{item.name}} </h3>
+            <p>{{item.desc}}</p>
+            <a href="{{url_for('update', user_id = user_id, item_id = item._id)}}">
+                <button class="bt">Update this item</button>
+            </a>
+            <a href="{{url_for('delete', user_id = user_id, item_id = item._id)}}">
+                <button class="bt">Delete this item</button>
+            </a>
+            <hr>
+
+        </div>
+        <br><br>
+
+        {%endfor%}
+
+        <!-- Add more items as needed -->
+
+    </section>
+
+    <footer>
+        <p>© 2023 Collection Showcase. All rights reserved.</p>
+        <p>Source code available at
+            <a
+              href="https://github.com/software-students-fall2023/5-final-project-ary.git"
+              >Github.
+            </a>
+        </p>
+    </footer>
+
+</body>
+</html>
