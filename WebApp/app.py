@@ -127,6 +127,29 @@ def upload(user_id):
         flash('Invalid file format. Allowed formats: png, jpg, jpeg, gif', 'danger')
 
     return render_template('upload.html', user_id=user_id)
+    
+@app.route('/update/<user_id>/<item_id>', methods=['GET', 'POST'])
+def update(user_id, item_id):
+    if request.method == 'POST':
+        file = request.files.get('file')
+        item_name = request.form.get('name')
+        item_desc = request.form.get('description')
+
+        update_data = {"name": item_name, "desc": item_desc}
+        
+        if file and allowed_file(file.filename):
+            fs = GridFS(db)
+            file_id = fs.put(file, filename=file.filename)
+            update_data["file_id"] = file_id
+
+            old_item = db.items.find_one({"_id": ObjectId(item_id)})
+            fs.delete(ObjectId(old_item['file_id']))
+
+        db.items.update_one({"_id": ObjectId(item_id)}, {"$set": update_data})
+        return redirect(url_for('my_collections', user_id=user_id))
+    else:
+        item = db.items.find_one({"_id": ObjectId(item_id)})
+        return render_template('update.html', item=item, user_id=user_id)
 
 @app.route('/delete/<user_id>/<item_id>')
 def delete(user_id, item_id):
