@@ -20,7 +20,9 @@ def mock_db(monkeypatch):
     monkeypatch.setattr("pymongo.MongoClient", lambda *args, **kwargs: mock_client)
 
     # Mock GridFS
-    monkeypatch.setattr("gridfs.GridFS", mongomock.gridfs.enable_gridfs_integration())
+    grid_fs = mongomock.gridfs.GridFS(mock_db)
+    monkeypatch.setattr("gridfs.GridFS", lambda db, **kwargs: grid_fs)
+
     yield
 
 # Test for the main page access
@@ -64,15 +66,42 @@ def test_file_upload(client):
 # Test for image retrieval
 def test_get_image(client):
     # Add a test image to the database and use its ID here
-    test_image_id = 'some_test_id'
+    fs = mongomock.gridfs.GridFS(mock_db)
+    file_id = fs.put(io.BytesIO(b"test image data"), filename="test.jpg")
     response = client.get(f'/image/{test_image_id}')
     assert response.status_code == 200
     assert response.content_type.startswith('image/')
+    
+# Test for update function
+def test_update_item_get(client, mock_db):
+
+    test_item = mock_db.items.insert_one({"name": "test item", "desc": "description", "user_id": "test_user_id", "file_id": "some_file_id"})
+    test_item_id = test_item.inserted_id
+    response = client.get(f'/update/test_user_id/{test_item_id}')
+    assert response.status_code == 200
+    assert b'Update Item' in response.data
+
+def test_update_item_post(client, mock_db):
+    test_item = mock_db.items.insert_one({"name": "original name", "desc": "original description", "user_id": "test_user_id", "file_id": "some_file_id"})
+    test_item_id = test_item.inserted_id
+
+    updated_data = {
+        'name': 'updated name',
+        'description': 'updated description'
+    }
+
+    response = client.post(f'/update/test_user_id/{test_item_id}', data=updated_data)
+    assert response.status_code == 302
+
+    updated_item = mock_db.items.find_one({"_id": test_item_id})
+    assert updated_item['name'] == 'updated name'
+    assert updated_item['desc'] == 'updated description'
 
 # Test for deleting an item
 def test_delete_item(client):
     # Mock adding an item and getting its ID
-    test_item_id = 'mock_item_id'
+    test_item = mock_db.items.insert_one({"name": "test item", "desc": "description", "user_id": "test_user_id"})
+    test_item_id = test_item.inserted_id
     response = client.get(f'/delete/test_user_id/{test_item_id}')
     # Check if redirect occurred to the my_collections page
     assert response.status_code == 302
