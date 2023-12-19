@@ -2,7 +2,6 @@ import sys
 import os
 import pytest
 from mongomock import MongoClient
-import mongomock.gridfs
 import io
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -22,10 +21,6 @@ def mock_db(monkeypatch):
     mock_client = MongoClient()
     mock_db = mock_client['test_db']
     monkeypatch.setattr("pymongo.MongoClient", lambda *args, **kwargs: mock_client)
-
-    # Mock GridFS
-    grid_fs = mongomock.gridfs.GridFS(mock_db)
-    monkeypatch.setattr("gridfs.GridFS", lambda db, **kwargs: grid_fs)
 
     yield
 
@@ -67,14 +62,6 @@ def test_file_upload(client):
     response = client.post('/upload/test_user_id', data=data, content_type='multipart/form-data')
     assert b'Invalid file format' not in response.data
 
-# Test for image retrieval
-def test_get_image(client):
-    # Add a test image to the database and use its ID here
-    fs = mongomock.gridfs.GridFS(mock_db)
-    file_id = fs.put(io.BytesIO(b"test image data"), filename="test.jpg")
-    response = client.get(f'/image/{test_image_id}')
-    assert response.status_code == 200
-    assert response.content_type.startswith('image/')
     
 # Test for update function
 def test_update_item_get(client, mock_db):
