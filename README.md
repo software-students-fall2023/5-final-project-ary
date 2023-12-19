@@ -16,7 +16,7 @@ link to the image on DockerHub https://hub.docker.com/r/alexxiang0604/digital_co
 - visit the website on `http://localhost:5050`
 
 ## Deployed WebApp Link
-```https://seal-app-vpxoe.ondigitalocean.app/login```
+https://seal-app-vpxoe.ondigitalocean.app/login
 
 ## Team Members
 - [Alex Xiang](https://github.com/AlexXiang604)
