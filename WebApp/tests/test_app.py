@@ -21,6 +21,8 @@ def mock_db(monkeypatch):
     mock_client = MongoClient()
     mock_db = mock_client['test_db']
     monkeypatch.setattr("pymongo.MongoClient", lambda *args, **kwargs: mock_client)
+    
+    monkeypatch.setattr('app', 'db', mock_db) 
 
     yield
 

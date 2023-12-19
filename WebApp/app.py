@@ -31,6 +31,11 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/some_route')
+def some_route():
+    data = db.your_collection.find()
+    return "Data retrieved"
+
 @app.route('/')
 def direct_to_login():
     return redirect(url_for('login'))
