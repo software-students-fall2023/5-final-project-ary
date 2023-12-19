@@ -34,11 +34,11 @@ jobs:
         pip install --user pipenv
         pipenv install
 
-    - name: Test with pytest
-      run: |
-        pipenv run python -m pytest
-
-    # Deploy commands
-    - name: Deploy
-      run: |
-        # 
+   - name: Deployment
+    on:
+    push:
+    branches:
+      - main
+    pull_request:
+    branches:
+      - main
