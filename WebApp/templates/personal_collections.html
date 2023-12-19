@@ -41,6 +41,9 @@
             <img src="{{ url_for('get_image', file_id=item.file_id) }}" alt="{{ item.name }}">
             <h3>{{item.name}} </h3>
             <p>{{item.desc}}</p>
+            <a href="{{url_for('update', user_id = user_id, item_id = item._id)}}">
+                <button class="bt">Update this item</button>
+            </a>
             <a href="{{url_for('delete', user_id = user_id, item_id = item._id)}}">
                 <button class="bt">Delete this item</button>
             </a>
