@@ -15,8 +15,8 @@ link to the image on DockerHub https://hub.docker.com/r/alexxiang0604/digital_co
 - cd to the main directory and run  `docker-compose up --build`
 - visit the website on `http://localhost:5050`
 
-## Setup Instructions
-instructions for how to set up any environment variables and import any starter data into the database, as necessary, for the system to operate correctly when run.
+## Deployed WebApp Link
+```https://seal-app-vpxoe.ondigitalocean.app/login```
 
 ## Team Members
 - [Alex Xiang](https://github.com/AlexXiang604)
