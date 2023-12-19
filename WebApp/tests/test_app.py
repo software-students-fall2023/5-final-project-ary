@@ -1,9 +1,13 @@
+import sys
+import os
 import pytest
-from flask import Flask 
-from app import app
 from mongomock import MongoClient
 import mongomock.gridfs
 import io
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from app import app
 
 # Setup for the Flask testing environment
 @pytest.fixture
