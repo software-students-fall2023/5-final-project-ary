@@ -1,6 +1,6 @@
 import pytest
 from flask import Flask 
-from app import app
+from WebApp.app import app
 from mongomock import MongoClient
 import mongomock.gridfs
 import io
