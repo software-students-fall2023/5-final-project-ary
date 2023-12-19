@@ -16,7 +16,9 @@ app.debug = True
 
 load_dotenv()  # take environment variables from .env.
 
-cxn = pymongo.MongoClient(os.getenv('MONGO_URI'), serverSelectionTimeoutMS=5000)
+client = pymongo.MongoClient(os.getenv('MONGO_URI'), serverSelectionTimeoutMS=5000)
+db = client[os.getenv('MONGO_DBNAME')]
+
 try:
     # verify the connection works by pinging the database
     cxn.admin.command('ping') # The ping command is cheap and does not require auth.
