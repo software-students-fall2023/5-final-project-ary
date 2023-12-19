@@ -18,10 +18,10 @@ def client():
 # Mocking MongoDB
 @pytest.fixture(autouse=True)
 def mock_db(monkeypatch):
+    monkeypatch.setenv('MONGO_DBNAME', 'test_db')
     mock_client = MongoClient()
     mock_db = mock_client['test_db']
     monkeypatch.setattr("pymongo.MongoClient", lambda *args, **kwargs: mock_client)
-    
     monkeypatch.setattr('app', 'db', mock_db) 
 
     yield
