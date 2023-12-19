@@ -8,19 +8,60 @@
 
 </head>
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        text-align: center;
+        margin: 50px;
+    }
+
+    form {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+
+
+
+</style>
+
 <body>
+    <style type="text/css">
+        .bt {
+         background-color:#eff6f6;
+         cursor:pointer;
+         border-radius: 8px;
+         padding: 8px 18px;
+         font-size: 12px;
+         text-align: center;
+     }
+
+     
+     </style>
+
+    <header>
     <h1>Item Upload 
+        <nav>
         <a href="{{url_for('my_collections', user_id = user_id)}}">
-            <button class="bt">Back</button>
+            <button class="bt">Back to main page</button>
         </a>
+       </nav>
     </h1>
+   </header>
 
     <form action="{{url_for('upload', user_id=user_id)}}" method="post" enctype="multipart/form-data">
-        <label for="image">Upload the image of the item</label>
+        <label for="image">Uppload Image</label>
         <input type="file" name="file" accept=".png, .jpg, .jpeg, .gif" required>
         <br><br>
 
-        <label for="name">Name of the item</label>
+        <label for="name">Name</label>
         <input id="name"  class="btn2" name="name" placeholder="What's this item?" required></input>
         <br><br>
 
