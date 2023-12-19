@@ -6,10 +6,13 @@ This GitHub project hosts the codebase for a web application designed to serve a
 ![Test](https://github.com/software-students-fall2023/5-final-project-ary/actions/workflows/CI.yml/badge.svg)
 
 ## Links
-links to the container images for each custom subsystem, hosted on DockerHub
+link to the image on DockerHub https://hub.docker.com/r/alexxiang0604/digital_collection_ary.
 
 ## Configuration Instructions
-instructions for how to configure and run all parts of your project for any developer on any platform - these instructions must work!
+- download dockerhub
+- clone the repository
+- cd to the main directory and run  `docker-compose up --build`
+- visit the website on `http://localhost:5050`
 
 ## Setup Instructions
 instructions for how to set up any environment variables and import any starter data into the database, as necessary, for the system to operate correctly when run.
