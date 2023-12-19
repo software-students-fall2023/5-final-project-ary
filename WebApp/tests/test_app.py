@@ -4,6 +4,7 @@ import pytest
 from mongomock import MongoClient
 import io
 
+os.environ['MONGO_DBNAME'] = 'test_db'
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from app import app, db
